@@ -22,6 +22,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<!--Adicionando cache-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		
 		<!--Adicionando Bean Validation-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
