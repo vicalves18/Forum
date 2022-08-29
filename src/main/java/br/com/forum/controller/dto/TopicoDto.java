@@ -1,8 +1,7 @@
 package br.com.forum.controller.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 
 import br.com.forum.modelo.Topico;
 
@@ -38,13 +37,14 @@ public class TopicoDto {
 	}
 
 	//Encapsulando para conversão de TopicoDto para Topico 
-	public static List<TopicoDto> converter(List<Topico> topicos) {
+	public static Page<TopicoDto> converter(Page<Topico> topicos) {
 		//1- stream():Recebe o fluxo de listas de topicos
 		//2-map():função intermediaria que toma cada elemento de uma stream como parametro e retorna o elemento processado como resposta.
 			//Nesse caso irá chamar o construtor como parametro
 		//3- collect():possibilita coletar os elementos de uma stream em forma de coleção
 		//4-Collector.toList: reuni o resultado da stream e os retorna como lista
-		return topicos.stream().map(TopicoDto::new).collect(Collectors.toList());
+		//return topicos.stream().map(TopicoDto::new).collect(Collectors.toList());
+		return topicos.map(TopicoDto::new);
 	}
 	
 	
