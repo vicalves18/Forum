@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,6 +67,8 @@ public class TopicosController {
 	//Form -> Dados que chegam 
 	@PostMapping
 	@Transactional
+	//Limpar determinado cache
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	//@RequestBody ->recebe os parametros do corpo da requisicao
 	//ResponseEntity<> -> retorna o tipo de objeto que sera devolvido no corpo da resposta
 	//@Valid -> verifica as anotações especificadas no parametro passado
@@ -96,6 +99,7 @@ public class TopicosController {
 	@PutMapping("/{id}")
 	//Avisa que é para haver a mudança no banco - commita a transação no final do metodo
 	@Transactional
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id,@RequestBody @Valid AtualizacaoTopicoForm form){
 		Optional<Topico> opcional = topicoRepository.findById(id);
 		//Tratando erro com 404 - caso nao encontrado o id
@@ -110,6 +114,7 @@ public class TopicosController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<?> remover(@PathVariable Long id){
 		Optional<Topico> opcional = topicoRepository.findById(id);
 		if(opcional.isPresent()) {
